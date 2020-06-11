@@ -27,7 +27,6 @@ const hasDied = wikiHTML => {
 
 const lookup = name => {
 
-  //Check if the name is in title case, if not change it to title case
   name = en2wikiLookupName(name);
 
   const request = https.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvprop=content&titles=${name}`, response => {

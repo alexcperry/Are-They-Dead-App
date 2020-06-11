@@ -21,7 +21,7 @@ const wiki2enLookupName = str => {
 }
 
 const hasDied = wikiHTML => {
-  return wikiHTML.includes('death_date');
+  return !wikiHTML.includes('[[Category:Living people]]');
 }
 
 
@@ -30,7 +30,7 @@ const lookup = name => {
   //Check if the name is in title case, if not change it to title case
   name = en2wikiLookupName(name);
 
-  const request = https.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvprop=content&rvsection=0&titles=${name}`, response => {
+  const request = https.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvprop=content&titles=${name}`, response => {
 
     let body = "";
 
@@ -58,5 +58,8 @@ const lookup = name => {
   });
 }
 
-lookup('albert einstein');
+let inputName = process.argv.slice(2);
+inputName = inputName.join(' ');
+
+lookup(inputName);
 
